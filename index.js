@@ -14,22 +14,17 @@ const HOST = process.env.API_HOST;
 const PORT = process.env.SERVER_PORT;
 
 function selectProxyHost(req, res) {
-    if (req.path.startsWith('/api/user')){
-        console.log('Api Gateway is calling ms-user...');
-        return HOST + ":" +process.env.MS_USER_PORT;
-    }    
-
-    if (req.path.startsWith('/api/patient'))  {
+    if (req.path.startsWith('/api/patients'))  {
         console.log('Api Gateway is calling ms-patient...');
         return HOST + ":" + process.env.MS_PATIENT_PORT;
     }  
 
-    if (req.path.startsWith('/api/doctor'))  {
+    if (req.path.startsWith('/api/doctors'))  {
         console.log('Api Gateway is calling ms-doctor...');
         return HOST + ":" + process.env.MS_DOCTOR_PORT;  
     }
 
-    if (req.path.startsWith('/api/appointment'))  {
+    if (req.path.startsWith('/api/appointments'))  {
         console.log('Api Gateway is calling ms-appointment...');
         return HOST + ":" + process.env.MS_APPOINTMENT_PORT;  
     }
@@ -44,7 +39,6 @@ app.get('/online', function(req, res){
 
 // Authentication
 app.use('/api', auth);
-
  
 app.use((req, res, next)  => {
     httpProxy(selectProxyHost(req, res))(req, res, next);
