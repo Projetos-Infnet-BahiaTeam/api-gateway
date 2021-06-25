@@ -56,7 +56,7 @@ app.get('/online', function(req, res){
 app.use('/api', auth);
  
 app.use((req, res, next)  => {
-    httpProxy(selectProxyHost(req, res))(req, res, next);
+  httpProxy(selectProxyHost(req, res))(req, res, next);
 });
 
 app.listen(PORT, () => {
